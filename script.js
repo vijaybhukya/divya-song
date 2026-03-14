@@ -1,25 +1,50 @@
 const audio = document.getElementById("audio");
-const playBtn = document.getElementById("playBtn");
+const btn = document.getElementById("playBtn");
 const icon = document.getElementById("icon");
 
-const progressBar = document.getElementById("progressBar");
+const bars = document.querySelectorAll(".bar");
 const progressFill = document.getElementById("progressFill");
 
-const currentTime = document.getElementById("currentTime");
+const current = document.getElementById("current");
 const duration = document.getElementById("duration");
 
-playBtn.onclick = () => {
+const typing = document.getElementById("typing");
+
+const message =
+"You sang something beautiful. So I wrote some code for you.";
+
+let index=0;
+
+function type(){
+
+if(index<message.length){
+typing.innerHTML+=message.charAt(index);
+index++;
+setTimeout(type,40);
+}
+
+}
+
+type();
+
+btn.onclick=()=>{
 
 if(audio.paused){
+
 audio.play();
-playBtn.classList.add("playing");
-icon.textContent="⏸";
-createHeart();
-}
-else{
+icon.innerHTML="⏸";
+
+bars.forEach(b=>b.style.animationPlayState="running");
+
+startHearts();
+
+}else{
+
 audio.pause();
-playBtn.classList.remove("playing");
-icon.textContent="▶";
+icon.innerHTML="▶";
+
+bars.forEach(b=>b.style.animationPlayState="paused");
+
 }
 
 };
@@ -32,18 +57,10 @@ audio.addEventListener("timeupdate",()=>{
 
 let percent=(audio.currentTime/audio.duration)*100;
 progressFill.style.width=percent+"%";
-currentTime.textContent=format(audio.currentTime);
+
+current.textContent=format(audio.currentTime);
 
 });
-
-progressBar.onclick=(e)=>{
-
-let rect=progressBar.getBoundingClientRect();
-let percent=(e.clientX-rect.left)/rect.width;
-
-audio.currentTime=percent*audio.duration;
-
-};
 
 function format(sec){
 
@@ -56,7 +73,7 @@ return m+":"+s;
 
 }
 
-function createHeart(){
+function startHearts(){
 
 setInterval(()=>{
 
@@ -68,10 +85,8 @@ heart.style.left=Math.random()*100+"%";
 
 document.getElementById("hearts").appendChild(heart);
 
-setTimeout(()=>{
-heart.remove();
-},8000);
+setTimeout(()=>heart.remove(),7000);
 
-},600);
+},500);
 
 }
