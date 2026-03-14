@@ -9,37 +9,47 @@
 
 <body>
 
-<div class="background" id="hearts"></div>
+<div class="gradient-bg"></div>
+<div class="hearts" id="hearts"></div>
 
 <div class="container">
-    <div class="card">
 
-        <h1 class="title">Divya's Song</h1>
+<div class="card">
 
-        <p class="subtitle">
-            You sang something beautiful,<br>
-            so I built something for you.
-        </p>
+<h1 class="title">Divya's Song 🎶</h1>
 
-        <audio id="audio" src="audio.mp4"></audio>
+<p class="message">
+<span id="typing"></span>
+</p>
 
-        <button class="play-btn" id="playBtn">
-            <span id="icon">▶</span>
-            Play Divya's Song
-        </button>
+<div class="visualizer" id="visualizer">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div>
 
-        <div class="progress-section">
-            <div class="progress-bar" id="progressBar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
+<button id="playBtn" class="playBtn">
+<span id="icon">▶</span>
+Play
+</button>
 
-            <div class="time-display">
-                <span id="currentTime">0:00</span>
-                <span id="duration">0:00</span>
-            </div>
-        </div>
+<div class="progress">
+<div class="progressFill" id="progressFill"></div>
+</div>
 
-    </div>
+<div class="time">
+<span id="current">0:00</span>
+<span id="duration">0:00</span>
+</div>
+
+<audio id="audio" src="audio.mp4"></audio>
+
+</div>
 </div>
 
 <script src="script.js"></script>
