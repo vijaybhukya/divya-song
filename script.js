@@ -1,4 +1,4 @@
-const audio = document.getElementById("audio");
+const video = document.getElementById("video");
 const btn = document.getElementById("playBtn");
 const icon = document.getElementById("icon");
 
@@ -10,7 +10,7 @@ const canvas = document.getElementById("visualizer");
 const ctx = canvas.getContext("2d");
 
 canvas.width = 400;
-canvas.height = 120;
+canvas.height = 100;
 
 let audioCtx;
 let analyser;
@@ -18,7 +18,9 @@ let source;
 let dataArray;
 
 const typing = document.getElementById("typing");
-const message = "Your voice deserved more than a replay button, so I built you a little stage.";
+
+const message =
+"You sang something beautiful. So I built you a little stage.";
 
 let i=0;
 
@@ -33,21 +35,23 @@ type();
 
 btn.onclick = () => {
 
-if(audio.paused){
+if(video.paused){
 
-audio.play();
+video.play();
 icon.innerHTML="⏸";
 
 if(!audioCtx){
 
 audioCtx = new AudioContext();
-source = audioCtx.createMediaElementSource(audio);
+
+source = audioCtx.createMediaElementSource(video);
 analyser = audioCtx.createAnalyser();
 
 source.connect(analyser);
 analyser.connect(audioCtx.destination);
 
 analyser.fftSize = 128;
+
 dataArray = new Uint8Array(analyser.frequencyBinCount);
 
 draw();
@@ -58,7 +62,7 @@ startHearts();
 
 }else{
 
-audio.pause();
+video.pause();
 icon.innerHTML="▶";
 
 }
@@ -88,17 +92,20 @@ ctx.fillRect(x,canvas.height-height,barWidth-2,height);
 
 }
 
-audio.addEventListener("timeupdate",()=>{
+video.addEventListener("timeupdate",()=>{
 
-let percent=(audio.currentTime/audio.duration)*100;
+let percent=(video.currentTime/video.duration)*100;
+
 progressFill.style.width=percent+"%";
 
-current.textContent=format(audio.currentTime);
+current.textContent=format(video.currentTime);
 
 });
 
-audio.addEventListener("loadedmetadata",()=>{
-duration.textContent=format(audio.duration);
+video.addEventListener("loadedmetadata",()=>{
+
+duration.textContent=format(video.duration);
+
 });
 
 function format(sec){
@@ -117,7 +124,9 @@ function startHearts(){
 setInterval(()=>{
 
 let heart=document.createElement("div");
+
 heart.className="heart";
+
 heart.innerHTML="❤️";
 
 heart.style.left=Math.random()*100+"%";
